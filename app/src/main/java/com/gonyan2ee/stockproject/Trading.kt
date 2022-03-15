@@ -19,12 +19,10 @@ class Trading : AppCompatActivity() {
         val kospi = mutableMapOf<String, Int>()
 
         kospi["Samsung"] = sharePrice("https://finance.naver.com/item/main.naver?code=005930")
-        kospi["LGEnergySolution"] =
-            sharePrice("https://finance.naver.com/item/main.naver?code=373220")
+        kospi["LGEnergySolution"] = sharePrice("https://finance.naver.com/item/main.naver?code=373220")
         kospi["SKHynix"] = sharePrice("https://finance.naver.com/item/main.naver?code=000660")
         kospi["NAVER"] = sharePrice("https://finance.naver.com/item/main.naver?code=035420")
-        kospi["SamsungBiologics"] =
-            sharePrice("https://finance.naver.com/item/main.naver?code=207940")
+        kospi["SamsungBiologics"] = sharePrice("https://finance.naver.com/item/main.naver?code=207940")
         kospi["KaKao"] = sharePrice("https://finance.naver.com/item/main.naver?code=035720")
         kospi["Hyundai"] = sharePrice("https://finance.naver.com/item/main.naver?code=005380")
         kospi["SamsungSDI"] = sharePrice("https://finance.naver.com/item/main.naver?code=006400")
@@ -33,12 +31,10 @@ class Trading : AppCompatActivity() {
         kospi["KakaoBank"] = sharePrice("https://finance.naver.com/item/main.naver?code=323410")
         kospi["Celltrion"] = sharePrice("https://finance.naver.com/item/main.naver?code=068270")
         kospi["POSCO"] = sharePrice("https://finance.naver.com/item/main.naver?code=005490")
-        kospi["KBFinancialGroup"] =
-            sharePrice("https://finance.naver.com/item/main.naver?code=105560")
+        kospi["KBFinancialGroup"] = sharePrice("https://finance.naver.com/item/main.naver?code=105560")
         kospi["SamsungCnT"] = sharePrice("https://finance.naver.com/item/main.naver?code=028260")
         kospi["LGElectronics"] = sharePrice("https://finance.naver.com/item/main.naver?code=066570")
-        kospi["ShinhanHoldings"] =
-            sharePrice("https://finance.naver.com/item/main.naver?code=055550")
+        kospi["ShinhanHoldings"] = sharePrice("https://finance.naver.com/item/main.naver?code=055550")
         kospi["HyundaiMobis"] = sharePrice("https://finance.naver.com/item/main.naver?code=012330")
         kospi["KaKaoPay"] = sharePrice("https://finance.naver.com/item/main.naver?code=377300")
         kospi["SKInnovation"] = sharePrice("https://finance.naver.com/item/main.naver?code=096770")
