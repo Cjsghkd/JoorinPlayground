@@ -49,4 +49,9 @@ dependencies {
 
     // 카카오 SDK 모듈 설정
     implementation "com.kakao.sdk:v2-user:2.8.6"
+
+    // jsoup
+    implementation 'org.jsoup:jsoup:1.14.1'
+    // coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
 }
