@@ -3,4 +3,6 @@
     <string name="welcome">Welcome</string>
     <string name="description">주린이 놀이터는 실제 주가 데이터로\n여러 매매 전략을 구사해 볼 수 있는\n모의 주식 프로그램 입니다.</string>
     <string name="rank">자산 랭킹</string>
+    <string name="trading">주식 거래</string>
+    <string name="mypage">마이페이지</string>
 </resources>
