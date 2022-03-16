@@ -31,7 +31,7 @@ class Trading : AppCompatActivity() {
                 kospi["KBFinancialGroup"] = sharePrice("https://finance.naver.com/item/main.naver?code=105560")
                 kospi["SamsungCnT"] = sharePrice("https://finance.naver.com/item/main.naver?code=028260")
                 kospi["LGElectronics"] = sharePrice("https://finance.naver.com/item/main.naver?code=066570")
-                kospi["ShinhanHoldings"] = sharePrice("https://finance.naver.com/item/main.naver?code=055550")
+                kospi["ShinhanFinancialGroup"] = sharePrice("https://finance.naver.com/item/main.naver?code=055550")
                 kospi["HyundaiMobis"] = sharePrice("https://finance.naver.com/item/main.naver?code=012330")
                 kospi["KaKaoPay"] = sharePrice("https://finance.naver.com/item/main.naver?code=377300")
                 kospi["SKInnovation"] = sharePrice("https://finance.naver.com/item/main.naver?code=096770")
