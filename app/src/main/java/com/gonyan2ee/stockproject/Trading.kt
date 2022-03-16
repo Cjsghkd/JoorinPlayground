@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 class Trading : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trading)
+
 
         val kospi = mutableMapOf<String, Int>()
 
