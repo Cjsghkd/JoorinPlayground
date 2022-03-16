@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StockProject">
-        <activity android:name=".Trading" android:exported="true">
+        <activity android:name=".Trading" />
+        <activity android:name=".Mypage" />
+        <activity android:name=".Rank" />
+        <activity
+            android:name=".Login"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +28,6 @@
                     android:host="oauth"
                     android:scheme="kakaoc8e2badce72d706a4eb1f526a7e4c2f7" />
             </intent-filter>
-        </activity>
-        <activity android:name=".Mypage" />
-        <activity android:name=".Rank" />
-        <activity
-            android:name=".Login"
-            android:exported="true">
-
         </activity>
         <activity android:name=".MainActivity" />
     </application>
