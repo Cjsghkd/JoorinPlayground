@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 
 data class Stock(
@@ -25,7 +26,7 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(items.get(position).image != null) {
-            holder.image.setImageDrawable(items.get(position).image)
+            holder.image.setImageDrawable(items.get(position).image.toDrawable())
         }
         holder.price.text = items.get(position).price
     }
