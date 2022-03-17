@@ -15,13 +15,12 @@ data class Stock(
 
 class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     inner class ViewHolder(items: View) : RecyclerView.ViewHolder(items) {
-
         val image = (items.findViewById<ImageView>(R.id.ic_image))
         val price: TextView = items.findViewById<TextView>(R.id.price)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return ViewHolder(view)
     }
 
