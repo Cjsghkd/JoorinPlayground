@@ -15,7 +15,8 @@ data class Stock(
 
 class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     inner class ViewHolder(items: View) : RecyclerView.ViewHolder(items) {
-        val image: ImageView = items.findViewById<ImageView>(R.id.image)
+
+        val image = (items.findViewById<ImageView>(R.id.ic_image))
         val price: TextView = items.findViewById<TextView>(R.id.price)
     }
 
@@ -25,10 +26,8 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(items.get(position).image != null) {
-            holder.image.setImageDrawable(items.get(position).image.toDrawable())
-        }
-        holder.price.text = items.get(position).price
+        holder.image.setImageResource(items[position].image)
+        holder.price.text = items[position].price
     }
 
     override fun getItemCount(): Int {

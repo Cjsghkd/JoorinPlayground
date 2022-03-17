@@ -2,6 +2,7 @@ package com.gonyan2ee.stockproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gonyan2ee.stockproject.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
@@ -12,16 +13,12 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 class MainActivity : AppCompatActivity() {
-    val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         val kospi = mutableMapOf<String, Int>()
-
-
-
-
 
         CoroutineScope(Dispatchers.Main).launch {
             kospi["Samsung"] = sharePrice("https://finance.naver.com/item/main.naver?code=005930")
@@ -44,35 +41,28 @@ class MainActivity : AppCompatActivity() {
             kospi["HyundaiMobis"] = sharePrice("https://finance.naver.com/item/main.naver?code=012330")
             kospi["KaKaoPay"] = sharePrice("https://finance.naver.com/item/main.naver?code=377300")
             kospi["SKInnovation"] = sharePrice("https://finance.naver.com/item/main.naver?code=096770")
-
-            val stockList =  arrayListOf(
-
-                Stock(R.drawable.ic_samsung,kospi["Samsung"].toString()),
+            Log.d("kakao", kospi.toString())
+            val stockList = arrayListOf(
+                Stock(R.drawable.ic_samsung, kospi["Samsung"].toString()),
                 Stock(R.drawable.ic_lg_energy_solution, kospi["LGEnergySolution"].toString()),
-                Stock(R.drawable.ic_sk_hynix,kospi["SKHynix"].toString()),
-                Stock(R.drawable.ic_naver,kospi["NAVER"].toString()),
-                Stock(R.drawable.ic_samsung_biologics,kospi["SamsungBiologics"].toString()),
-                Stock(R.drawable.ic_kakao,kospi["KaKao"].toString()),
-                Stock(R.drawable.ic_hyundai,kospi["Hyundai"].toString()),
-                Stock(R.drawable.ic_samsung_sdi,kospi["SamsungSDI"].toString()),
-                Stock(R.drawable.ic_lg_chemistry,kospi["LGChemistry"].toString()),
-                Stock(R.drawable.ic_kia,kospi["Kia"].toString()),
-                Stock(R.drawable.ic_kakao_bank,kospi["KaKaoBank"].toString()),
-                Stock(R.drawable.ic_celltrion,kospi["Celltrion"].toString()),
-                Stock(R.drawable.ic_posco,kospi["POSCO"].toString()),
-                Stock(R.drawable.ic_kb,kospi["KBFinancialGroup"].toString()),
-                Stock(R.drawable.ic_samsung_cnt,kospi["SamsungCnT"].toString()),
-                Stock(R.drawable.ic_lg_electronics,kospi["GElectronics"].toString()),
-                Stock(R.drawable.ic_shinhan_financial_group,kospi["ShinhanHoldings"].toString()),
-                Stock(R.drawable.ic_hyundai_mobis,kospi["HyundaiMobis"].toString()),
-                Stock(R.drawable.ic_kakao_pay,kospi["KaKaoPay"].toString()),
-                Stock(R.drawable.ic_sk_innovation,kospi["SKInnovation"].toString())
-
-
-
-
-
-
+                Stock(R.drawable.ic_sk_hynix, kospi["SKHynix"].toString()),
+                Stock(R.drawable.ic_naver, kospi["NAVER"].toString()),
+                Stock(R.drawable.ic_samsung_biologics, kospi["SamsungBiologics"].toString()),
+                Stock(R.drawable.ic_kakao, kospi["KaKao"].toString()),
+                Stock(R.drawable.ic_hyundai, kospi["Hyundai"].toString()),
+                Stock(R.drawable.ic_samsung_sdi, kospi["SamsungSDI"].toString()),
+                Stock(R.drawable.ic_lg_chemistry, kospi["LGChemistry"].toString()),
+                Stock(R.drawable.ic_kia, kospi["Kia"].toString()),
+                Stock(R.drawable.ic_kakao_bank, kospi["KakaoBank"].toString()),
+                Stock(R.drawable.ic_celltrion, kospi["Celltrion"].toString()),
+                Stock(R.drawable.ic_posco, kospi["POSCO"].toString()),
+                Stock(R.drawable.ic_kb, kospi["KBFinancialGroup"].toString()),
+                Stock(R.drawable.ic_samsung_cnt, kospi["SamsungCnT"].toString()),
+                Stock(R.drawable.ic_lg_electronics, kospi["LGElectronics"].toString()),
+                Stock(R.drawable.ic_shinhan_financial_group, kospi["ShinhanHoldings"].toString()),
+                Stock(R.drawable.ic_hyundai_mobis, kospi["HyundaiMobis"].toString()),
+                Stock(R.drawable.ic_kakao_pay, kospi["KaKaoPay"].toString()),
+                Stock(R.drawable.ic_sk_innovation, kospi["SKInnovation"].toString())
             )
 
             binding.recyclerview.adapter = Adapter(stockList)
@@ -82,6 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
 suspend fun sharePrice(url: String): Int {
     val price: Int = withContext(Dispatchers.IO) {
         val doc: Document = Jsoup.connect(url).get()
