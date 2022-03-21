@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 data class Stock(
     var image: Int,
     var price: String,
-    var name : String
+    var name : String,
+    var prePrice : String
 )
 
 class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
@@ -18,6 +19,7 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
         val image: ImageView = items.findViewById(R.id.ic_image)
         val price: TextView = items.findViewById(R.id.price)
         val name: TextView = items.findViewById(R.id.name)
+        val prePrice: TextView = items.findViewById(R.id.profit_rate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +32,7 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
             image.setImageResource(items[position].image)
             price.text = items[position].price
             name.text = items[position].name
+            prePrice.text = items[position].prePrice
         }
     }
 

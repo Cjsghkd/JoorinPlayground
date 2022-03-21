@@ -1,7 +1,6 @@
 package com.gonyan2ee.stockproject
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,8 +44,8 @@ class TradingFragment : Fragment() {
         val url = "https://finance.naver.com/item/main.naver?code="
 
         CoroutineScope(Dispatchers.Main).launch {
+            val prePriceList = mutableListOf<String>()
             for (element in stockCode) {
-                var prePriceList = mutableListOf<String>()
                 prePriceList.add(preSharePrice(url + element))
             }
 
@@ -56,7 +55,11 @@ class TradingFragment : Fragment() {
                 for (i in stockCode.indices)
                     price.add(sharePrice(url + stockCode[i]) + "원")
                 for (i in 0 until price.size) {
-                    stockList = stockListAssignment(imageList, price, stockName)
+                    val priceInt = price[i].replace("원", "").toInt()
+                    val profit_rate = (priceInt / prePriceList[i].toInt()) * 100 - 100
+                    val profit_rate_list = mutableListOf<String>()
+                    profit_rate_list.add(profit_rate.toString())
+                    stockList = stockListAssignment(imageList, price, stockName, profit_rate_list)
                     recyclerView.adapter = Adapter(stockList)
                 }
                 val recyclerViewState = recyclerView.layoutManager?.onSaveInstanceState()
@@ -87,9 +90,9 @@ suspend fun preSharePrice(url: String): String {
     return price.toString()
 }
 
-fun stockListAssignment(img: List<Int>, price: MutableList<String>, name: List<String>) : ArrayList<Stock> {
+fun stockListAssignment(img: List<Int>, price: MutableList<String>, name: List<String>, prePrice: List<String>) : ArrayList<Stock> {
     val stockList = ArrayList<Stock>()
     for(i in img.indices)
-        stockList.add(Stock(img[i], price[i], name[i]))
+        stockList.add(Stock(img[i], price[i], name[i], prePrice[i]))
     return stockList
 }
