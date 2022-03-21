@@ -5,18 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 
 data class Stock(
     var image: Int,
-    var price: String
+    var price: String,
+    var name : String
 )
 
 class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
     inner class ViewHolder(items: View) : RecyclerView.ViewHolder(items) {
-        val image = (items.findViewById<ImageView>(R.id.ic_image))
-        val price: TextView = items.findViewById<TextView>(R.id.price)
+        val image: ImageView = items.findViewById(R.id.ic_image)
+        val price: TextView = items.findViewById(R.id.price)
+        val name: TextView = items.findViewById(R.id.name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,11 +26,15 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.image.setImageResource(items[position].image)
-        holder.price.text = items[position].price
+        holder.apply {
+            image.setImageResource(items[position].image)
+            price.text = items[position].price
+            name.text = items[position].name
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
+
 }

@@ -70,6 +70,5 @@ class Login : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-
     }
 }
