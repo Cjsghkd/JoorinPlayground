@@ -15,7 +15,6 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, _ ->
             if (tokenInfo != null) {
                 val intent = Intent(this, MainActivity::class.java)

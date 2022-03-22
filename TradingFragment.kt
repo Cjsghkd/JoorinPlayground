@@ -29,6 +29,7 @@ class TradingFragment : Fragment() {
             "삼성전자", "LG에너지솔루션", "SK하이닉스", "NAVER", "삼성바이오로직스", "카카오", "현대차", "삼성SDI", "LG화학", "기아",
             "카카오뱅크", "셀트리온", "POSCO홀딩스", "KB금융", "삼성물산", "LG전자", "신한지주", "현대모비스", "카카오페이", "SK이노베이션"
         )
+
         val imageList = listOf(
             R.drawable.ic_samsung, R.drawable.ic_lg_energy_solution, R.drawable.ic_sk_hynix, R.drawable.ic_naver,
             R.drawable.ic_samsung_biologics, R.drawable.ic_kakao, R.drawable.ic_hyundai, R.drawable.ic_samsung_sdi,
@@ -63,7 +64,7 @@ class TradingFragment : Fragment() {
                         profitRate = "+$profitRate"
                     profitRateList.add("$profitRate%")
                 }
-
+                Log.d("change", price.toString())
                 val stockList = stockListAssignment(imageList, price, stockName, profitRateList)
                 val recyclerViewState = recyclerView.layoutManager?.onSaveInstanceState()
                 recyclerView.adapter = Adapter(stockList)
