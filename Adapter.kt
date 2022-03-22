@@ -1,5 +1,6 @@
 package com.gonyan2ee.stockproject
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 data class Stock(
     var image: Int,
     var price: String,
-    var name : String,
-    var prePrice : String
+    var name: String,
+    var profitRate: String
 )
 
 class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapter.ViewHolder>() {
@@ -19,7 +20,7 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
         val image: ImageView = items.findViewById(R.id.ic_image)
         val price: TextView = items.findViewById(R.id.price)
         val name: TextView = items.findViewById(R.id.name)
-        val prePrice: TextView = items.findViewById(R.id.profit_rate)
+        val profitRate: TextView = items.findViewById(R.id.profit_rate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,7 +33,15 @@ class Adapter(private val items: ArrayList<Stock>) : RecyclerView.Adapter<Adapte
             image.setImageResource(items[position].image)
             price.text = items[position].price
             name.text = items[position].name
-            prePrice.text = items[position].prePrice
+            profitRate.text = items[position].profitRate
+
+            val profitRateValue = (profitRate.text.toString()).replace("%", "").toDouble()
+            when {
+                profitRateValue > 0 -> profitRate.setTextColor(Color.RED)
+                profitRateValue < 0 -> profitRate.setTextColor(Color.BLUE)
+                else -> profitRate.setTextColor(Color.GRAY)
+            }
+
         }
     }
 
