@@ -21,7 +21,7 @@
         <TextView
             android:id="@+id/name"
             android:layout_width="180dp"
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans"
             android:layout_marginBottom="5dp"
@@ -29,7 +29,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:id="@+id/price"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
@@ -38,13 +38,13 @@
             android:textSize="20sp" />
 
     </LinearLayout>
-
     <TextView
         android:id="@+id/profit_rate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|center"
         android:textSize="17sp"
-        android:paddingBottom="20dp" />
+        android:paddingBottom="15dp" />
+
 
 </LinearLayout>
