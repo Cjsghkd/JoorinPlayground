@@ -45,6 +45,8 @@ class TradingFragment : Fragment() {
         val url = "https://finance.naver.com/item/main.naver?code="
         Log.d("size", stockCode.size.toString())
         CoroutineScope(Dispatchers.Main).launch {
+
+
             val prePriceList = mutableListOf<String>()
 
             for (code in stockCode)
@@ -60,7 +62,7 @@ class TradingFragment : Fragment() {
                     val profit = priceInt / (prePriceList[i].toInt()).toDouble()
                     var profitRate = String.format("%.2f", profit * 100 - 100)
 
-                    if(profitRate.toDouble() >= 0)
+                    if (profitRate.toDouble() >= 0)
                         profitRate = "+$profitRate"
                     profitRateList.add("$profitRate%")
                 }
@@ -70,6 +72,8 @@ class TradingFragment : Fragment() {
                 recyclerView.adapter = Adapter(stockList)
                 recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
             }
+
+
         }
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
