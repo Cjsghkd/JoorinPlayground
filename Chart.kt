@@ -6,10 +6,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.gonyan2ee.stockproject.databinding.ActivityChartBinding
+import kotlinx.android.synthetic.main.activity_chart.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.File
 import kotlin.concurrent.thread
+
+
 
 
 class Chart : AppCompatActivity() {
@@ -20,8 +23,26 @@ class Chart : AppCompatActivity() {
         setContentView(binding.root)
 
         val stockCode = listOf(
-            "005930", "373220", "000660", "035420", "207940", "035720", "005380", "006400", "051910", "000270", "323410", "068270", "005490", "005490", "028260", "066570", "055550",
-            "012330", "377300", "096770"
+            "005930",
+            "373220",
+            "000660",
+            "035420",
+            "207940",
+            "035720",
+            "005380",
+            "006400",
+            "051910",
+            "000270",
+            "323410",
+            "068270",
+            "005490",
+            "005490",
+            "028260",
+            "066570",
+            "055550",
+            "012330",
+            "377300",
+            "096770"
         )
         val stockName = listOf(
             "삼성전자", "LG에너지솔루션", "SK하이닉스", "NAVER", "삼성바이오로직스", "카카오", "현대차", "삼성SDI", "LG화학", "기아",
@@ -43,23 +64,38 @@ class Chart : AppCompatActivity() {
 
             val doc: Document = Jsoup.connect(url).ignoreContentType(true).get()
             var chart = doc.select("div.chart img").attr("src")
-            Log.d("chart", chart)
+            val url2 = "https://ssl.pstatic.net/imgfinance/chart/item/candle/"
+            val date = listOf(
+                "day/", "month/", "year/"
+            )
 
-            Log.d("url", url)
-            url.replace("code", stockCode[0])
-            val samsung = url
+            thread {
+                var url = "https://ssl.pstatic.net/imgfinance/chart/item/candle/day/"
+                var code = ""
+                for (i in stockName.indices) {
+                    if (stockName[i] == items.name) {
+                        code = stockCode[i]
+                    }
 
-            runOnUiThread {
-                Glide.with(this)
-                    .load(samsung)
-                    .placeholder(R.drawable.ic_load_error)
-                    .error(R.drawable.ic_load_error)
-                    .fallback(R.drawable.ic_load_error)
-                    .into(binding.chart)
+                }
+
+                url = "$url$code.png"
+
+
+
+
+                runOnUiThread {
+                    Glide.with(this)
+                        .load(url)
+                        .placeholder(R.drawable.ic_load_error)
+                        .error(R.drawable.ic_load_error)
+                        .fallback(R.drawable.ic_load_error)
+                        .into(binding.chart)
+                }
+
             }
-
         }
+
+
     }
-
-
 }
