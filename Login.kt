@@ -1,13 +1,30 @@
 package com.gonyan2ee.stockproject
 
+import android.Manifest
+import android.app.Activity
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.telephony.TelephonyManager
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.content.ContextCompat
 import com.gonyan2ee.stockproject.databinding.ActivityLoginBinding
+import com.google.firebase.firestore.FirebaseFirestore
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+
+val moneyData = hashMapOf(
+    "money" to 1000000
+)
+
+const val PERMISSION_REQUEST_CODE = 1001
 
 class Login : AppCompatActivity() {
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
@@ -15,8 +32,20 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        var phone = "default"
+
+        requestPermissions(arrayOf(Manifest.permission.READ_PHONE_NUMBERS), PERMISSION_REQUEST_CODE)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(arrayOf(Manifest.permission.READ_PHONE_NUMBERS), PERMISSION_REQUEST_CODE)
+            Toast.makeText(this, "전화번호 접근 권한을 허용해주세요", Toast.LENGTH_SHORT).show()
+        } else
+            phone = tm.line1Number
+
         UserApiClient.instance.accessTokenInfo { tokenInfo, _ ->
             if (tokenInfo != null) {
+                defaultMoneySetting(phone)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
@@ -55,6 +84,7 @@ class Login : AppCompatActivity() {
                     }
                 }
             } else if (token != null) {
+                defaultMoneySetting(phone)
                 Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
@@ -70,4 +100,18 @@ class Login : AppCompatActivity() {
             }
         }
     }
+}
+
+fun defaultMoneySetting(phone: String) {
+    val firebase = FirebaseFirestore.getInstance()
+
+    firebase.collection(phone)
+        .document("moneyData")
+        .set(moneyData)
+        .addOnSuccessListener { documentReference ->
+            Log.d(TAG, "success")
+        }
+        .addOnFailureListener { e ->
+            Log.w(TAG, "Error adding document", e)
+        }
 }
