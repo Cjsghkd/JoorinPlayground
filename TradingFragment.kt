@@ -43,9 +43,8 @@ class TradingFragment : Fragment() {
         val context = context
 
         val url = "https://finance.naver.com/item/main.naver?code="
-        Log.d("size", stockCode.size.toString())
-        CoroutineScope(Dispatchers.Main).launch {
 
+        CoroutineScope(Dispatchers.Main).launch {
 
             val prePriceList = mutableListOf<String>()
 

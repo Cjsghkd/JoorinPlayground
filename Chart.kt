@@ -25,8 +25,6 @@ class Chart : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-
-
         val stockCode = listOf(
             "005930", "373220", "000660", "035420", "207940", "035720", "005380", "006400", "051910", "000270", "323410", "068270", "005490", "005490", "028260", "066570", "055550",
             "012330", "377300", "096770"
@@ -47,12 +45,11 @@ class Chart : AppCompatActivity() {
             var url = "https://ssl.pstatic.net/imgfinance/chart/item/candle/day/"
             var code = ""
             for (i in stockName.indices) {
-                if(stockName[i] == items.name) {
+                if (stockName[i] == items.name) {
                     code = stockCode[i]
                 }
 
             }
-
             url = "$url$code.png"
 
             runOnUiThread {
@@ -65,18 +62,18 @@ class Chart : AppCompatActivity() {
             }
 
         }
-
         binding.buy.setOnClickListener {
             trading(binding.buy)
+            Toast.makeText(this, "매수가 정상처리 되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         binding.sell.setOnClickListener {
             trading(binding.sell)
+            Toast.makeText(this, "매도가 정상처리 되었습니다", Toast.LENGTH_SHORT).show()
         }
-
     }
 
-    fun trading(buttonID : Button) {
+    private fun trading(buttonID: Button) {
         val tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
         var phone = ""
         val firebase = FirebaseFirestore.getInstance()
@@ -91,7 +88,7 @@ class Chart : AppCompatActivity() {
             phone = tm.line1Number
 
         val docRef = firebase.collection(phone).document("moneyData")
-        var money : Long
+        var money: Long
         val stockPriceText = items.price.replace("원", "")
         Log.d("stockPrice", stockPriceText)
         val stockPrice = stockPriceText.toInt()
@@ -100,9 +97,13 @@ class Chart : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document != null) {
                     money = document.data?.get("money") as Long
+
+                    val amount = Integer.parseInt(binding.amount.text.toString())
+                    val totalPrice = amount * stockPrice
+
                     when (buttonID) {
-                        binding.buy -> money -= stockPrice
-                        binding.sell -> money += stockPrice
+                        binding.buy -> money -= totalPrice
+                        binding.sell -> money += totalPrice
                         else -> Log.d("error", "잘못된 접근입니다")
                     }
 
@@ -126,6 +127,4 @@ class Chart : AppCompatActivity() {
                 Log.d("error", "error!")
             }
     }
-
-
 }

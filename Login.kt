@@ -1,9 +1,7 @@
 package com.gonyan2ee.stockproject
 
 import android.Manifest
-import android.app.Activity
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,8 +9,6 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import com.gonyan2ee.stockproject.databinding.ActivityLoginBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,7 +41,6 @@ class Login : AppCompatActivity() {
 
         UserApiClient.instance.accessTokenInfo { tokenInfo, _ ->
             if (tokenInfo != null) {
-                defaultMoneySetting(phone)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
