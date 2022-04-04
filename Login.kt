@@ -20,6 +20,11 @@ val moneyData = hashMapOf(
     "money" to 1000000
 )
 
+val stockAmount = hashMapOf<String, Int>()
+val averagePrice = hashMapOf<String, Int>()
+
+
+
 const val PERMISSION_REQUEST_CODE = 1001
 
 class Login : AppCompatActivity() {
@@ -27,6 +32,11 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val stockName = listOf(
+            "삼성전자", "LG에너지솔루션", "SK하이닉스", "NAVER", "삼성바이오로직스", "카카오", "현대차", "삼성SDI", "LG화학", "기아",
+            "카카오뱅크", "셀트리온", "POSCO홀딩스", "KB금융", "삼성물산", "LG전자", "신한지주", "현대모비스", "카카오페이", "SK이노베이션"
+        )
 
         val tm = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
         var phone = "default"
@@ -39,6 +49,10 @@ class Login : AppCompatActivity() {
         } else
             phone = tm.line1Number
 
+        for(i in stockName.indices) {
+            stockAmount[i.toString()] = 0
+            averagePrice[i.toString()] = 0
+        }
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
@@ -83,7 +97,8 @@ class Login : AppCompatActivity() {
 //                    }
 //                }
 //            } else if (token != null) {
-//                defaultMoneySetting(phone)
+//                defaultMoneySetting
+        stockDataSetting(phone, stockName)
 //                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this, MainActivity::class.java)
 //                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
@@ -107,4 +122,22 @@ fun defaultMoneySetting(phone: String) {
     firebase.collection(phone)
         .document("moneyData")
         .set(moneyData)
+}
+
+fun stockDataSetting(phone: String, stockName : List<String>) {
+    val firebase = FirebaseFirestore.getInstance()
+
+    for(i in stockName.indices) {
+        val stockAmount = stockAmount[i.toString()]
+        val averagePrice = averagePrice[i.toString()]
+        val stockData = hashMapOf(
+            i.toString() to stockAmount,
+            i.toString() to averagePrice
+        )
+        firebase.collection(phone)
+            .document(i.toString())
+            .set(stockData)
+    }
+
+
 }
