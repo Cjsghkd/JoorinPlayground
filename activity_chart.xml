@@ -64,12 +64,13 @@
     </HorizontalScrollView>
 
     <EditText
+        android:inputType="number"
         android:id="@+id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:hint="수량"
-        android:gravity="left"
+        android:hint="@string/amount"
+        android:gravity="start"
         android:textColor="@color/gray"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
@@ -78,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:text="주문금액"
+        android:text="@string/totalPrice"
         android:paddingStart="3dp"
         android:gravity="left"
         android:layout_marginLeft="20dp"

@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rank"
-        android:textSize="50sp"
-        android:gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_height="match_parent"
+        android:text="rank"
+        android:textSize="100sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:text="자산 랭킹"
-        android:textSize="25sp" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
