@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
+
 class TradingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.trading, container, false)
@@ -65,7 +66,6 @@ class TradingFragment : Fragment() {
                         profitRate = "+$profitRate"
                     profitRateList.add("$profitRate%")
                 }
-                Log.d("change", price.toString())
                 val stockList = stockListAssignment(imageList, price, stockName, profitRateList)
                 val recyclerViewState = recyclerView.layoutManager?.onSaveInstanceState()
                 recyclerView.adapter = Adapter(stockList)

@@ -90,7 +90,6 @@ class Chart : AppCompatActivity() {
         val docRef = firebase.collection(phone).document("moneyData")
         var money: Long
         val stockPriceText = items.price.replace("원", "")
-        Log.d("stockPrice", stockPriceText)
         val stockPrice = stockPriceText.toInt()
 
         docRef.get()
@@ -104,27 +103,13 @@ class Chart : AppCompatActivity() {
                     when (buttonID) {
                         binding.buy -> money -= totalPrice
                         binding.sell -> money += totalPrice
-                        else -> Log.d("error", "잘못된 접근입니다")
                     }
-
-                    moneyData["money"] = money.toInt()
 
                     firebase.collection(phone)
                         .document("moneyData")
                         .set(moneyData)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(ContentValues.TAG, "success")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(ContentValues.TAG, "Error adding document", e)
-                        }
-
-                } else {
-                    Log.d("error", "empty")
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.d("error", "error!")
-            }
+        }
     }
-}
+
