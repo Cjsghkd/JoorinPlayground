@@ -7,6 +7,6 @@
     <string name="mypage">마이페이지</string>
     <string name="buy">매수(구매)</string>
     <string name="sell">매도(판매)</string>
-    <string name="quantity">수량 : </string>
-    <string name="quantityPrice">주문금액 : </string>
+    <string name="amount">수량</string>
+    <string name="totalPrice">주문금액</string>
 </resources>
