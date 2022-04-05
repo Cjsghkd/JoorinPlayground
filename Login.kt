@@ -1,7 +1,6 @@
 package com.gonyan2ee.stockproject
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -19,11 +18,6 @@ import com.kakao.sdk.user.UserApiClient
 val moneyData = hashMapOf(
     "money" to 1000000
 )
-
-val stockAmount = hashMapOf<String, Int>()
-val averagePrice = hashMapOf<String, Int>()
-
-
 
 const val PERMISSION_REQUEST_CODE = 1001
 
@@ -49,21 +43,14 @@ class Login : AppCompatActivity() {
         } else
             phone = tm.line1Number
 
-        for(i in stockName.indices) {
-            stockAmount[i.toString()] = 0
-            averagePrice[i.toString()] = 0
+        UserApiClient.instance.accessTokenInfo { tokenInfo, _ ->
+            if (tokenInfo != null) {
+                stockDataSetting(phone, stockName)
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                finish()
+            }
         }
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-        finish()
-//        UserApiClient.instance.accessTokenInfo { tokenInfo, _ ->
-//            if (tokenInfo != null) {
-//                val intent = Intent(this, MainActivity::class.java)
-//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-//                finish()
-//            }
-//        }
 
 //        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
 //            if (error != null) {
@@ -97,8 +84,8 @@ class Login : AppCompatActivity() {
 //                    }
 //                }
 //            } else if (token != null) {
-//                defaultMoneySetting
-        stockDataSetting(phone, stockName)
+//                defaultMoneySetting(phone)
+//                stockDataSetting(phone, stockName)
 //                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
 //                val intent = Intent(this, MainActivity::class.java)
 //                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
@@ -124,18 +111,17 @@ fun defaultMoneySetting(phone: String) {
         .set(moneyData)
 }
 
-fun stockDataSetting(phone: String, stockName : List<String>) {
+fun stockDataSetting(phone: String, stockName: List<String>) {
     val firebase = FirebaseFirestore.getInstance()
 
-    for(i in stockName.indices) {
-        val stockAmount = stockAmount[i.toString()]
-        val averagePrice = averagePrice[i.toString()]
-        val stockData = hashMapOf(
-            i.toString() to stockAmount,
-            i.toString() to averagePrice
-        )
+    val stockData = hashMapOf(
+        "구매수량" to 0,
+        "주문가격" to 0
+    )
+
+    for (i in stockName.indices) {
         firebase.collection(phone)
-            .document(i.toString())
+            .document(stockName[i])
             .set(stockData)
     }
 

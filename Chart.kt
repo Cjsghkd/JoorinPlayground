@@ -64,12 +64,10 @@ class Chart : AppCompatActivity() {
         }
         binding.buy.setOnClickListener {
             trading(binding.buy)
-            Toast.makeText(this, "매수가 정상처리 되었습니다", Toast.LENGTH_SHORT).show()
         }
 
         binding.sell.setOnClickListener {
             trading(binding.sell)
-            Toast.makeText(this, "매도가 정상처리 되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -91,25 +89,71 @@ class Chart : AppCompatActivity() {
         var money: Long
         val stockPriceText = items.price.replace("원", "")
         val stockPrice = stockPriceText.toInt()
-
-        docRef.get()
+        val docRefStockAmount = firebase.collection(phone).document(binding.name.text.toString())
+        docRefStockAmount.get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    money = document.data?.get("money") as Long
+                    val stockAmount = Integer.parseInt(document.data?.get("구매수량").toString())
+                    Log.d("stockAmount", stockAmount.toString())
 
-                    val amount = Integer.parseInt(binding.amount.text.toString())
-                    val totalPrice = amount * stockPrice
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null) {
+                                money = document.data?.get("money") as Long
+                                Log.d("money", money.toString())
 
-                    when (buttonID) {
-                        binding.buy -> money -= totalPrice
-                        binding.sell -> money += totalPrice
-                    }
+                                val amount = Integer.parseInt(binding.amount.text.toString())
+                                val totalPrice = amount * stockPrice
+                                when (buttonID) {
+                                    binding.buy ->
+                                        if (money < totalPrice) {
+                                            Toast.makeText(this, "금액이 부족합니다.", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            money -= totalPrice
+                                            Toast.makeText(this, "매수가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                                            Log.d("money2", money.toString())
 
-                    firebase.collection(phone)
-                        .document("moneyData")
-                        .set(moneyData)
+                                            val stockData = hashMapOf(
+                                                "구매수량" to (stockAmount + amount),
+                                                "주문가격" to totalPrice // 현재 가격이랑 연동하는거 만들기
+                                            )
+
+                                            firebase.collection(phone)
+                                                .document(binding.name.text.toString())
+                                                .set(stockData)
+                                        }
+
+                                    binding.sell ->
+                                        if (stockAmount < amount)
+                                            Toast.makeText(this, "보유수량 이상 매도할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                                        else {
+                                            money += totalPrice
+                                            Toast.makeText(this, "매도가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+
+                                            val stockData = hashMapOf(
+                                                "구매수량" to (stockAmount - amount),
+                                                "주문가격" to totalPrice // 현재 가격이랑 연동하는거 만들기
+                                            )
+
+                                            firebase.collection(phone)
+                                                .document(binding.name.text.toString())
+                                                .set(stockData)
+                                        }
+                                }
+
+                                moneyData["money"] = money.toInt()
+                                Log.d("money3", moneyData.toString())
+
+                                firebase.collection(phone)
+                                    .document("moneyData")
+                                    .set(moneyData)
+
+
+
+                            }
+                        }
                 }
             }
-        }
     }
+}
 
