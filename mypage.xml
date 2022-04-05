@@ -11,9 +11,9 @@
         android:paddingTop="60dp">
 
         <ImageView
+            android:id="@+id/profile_image"
             android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:src="@android:color/holo_blue_light" />
+            android:layout_height="75dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,19 +22,22 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="닉네임"
-                android:textSize="16dp"
+                android:text="@string/nickname"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="잔액 : "
-                android:textSize="16dp" />
+                android:text="@string/balance"
+                android:textSize="16sp" />
+
 
         </LinearLayout>
 
@@ -42,24 +45,25 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:text="총 수익률"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_margin="10dp"
-        android:background="@color/GRAY" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:weightSum="3">
 
         <TextView
@@ -67,43 +71,37 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="10000원"
-            android:textSize="20dp" />
+            android:text="1000000원"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="10%"
-            android:textSize="20dp" />
-
+            android:text="aja%"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
-        android:text="보유 주식"
-        android:textSize="25dp"
+        android:text="보유주식"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_margin="10dp"
-        android:background="@color/GRAY" />
+        android:background="@color/gray" />
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="?android:attr/actionBarSize" />
-    </LinearLayout>
-
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="?android:attr/actionBarSize" />
 </LinearLayout>
